@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F6F6B">
+<title>PlainApp</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap">
+<style>
+:root{--bg:#F3F5F2;--card:#FFFFFF;--ink:#1B2A2F;--mute:#5F7076;--line:#D7DFDC;--teal:#1F6F6B;--amber:#E8A317;--amber-ink:#4A3200;--warn:#B3452E;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111A1C;--card:#1A2629;--ink:#E6EEEA;--mute:#93A5A9;--line:#2C3C40;--teal:#4FB3AC;--amber:#F0B429;--amber-ink:#2B1D00;--warn:#E7826B;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111A1C;--card:#1A2629;--ink:#E6EEEA;--mute:#93A5A9;--line:#2C3C40;--teal:#4FB3AC;--amber:#F0B429;--amber-ink:#2B1D00;--warn:#E7826B;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+.app{max-width:520px;margin:0 auto;padding:16px 16px 40px}
+header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+header svg{width:34px;height:34px;flex:none}
+header h1{font-size:1.15rem;margin:0;font-weight:800;flex:1}
+button{font:inherit;cursor:pointer}
+.ib{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;min-width:38px;height:38px;padding:0 10px}
+.btn{background:var(--teal);color:#fff;border:0;border-radius:12px;padding:12px 18px;font-weight:700}
+.btn.full{width:100%}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.warn{background:transparent;color:var(--warn);border:1px solid var(--warn)}
+.hero{background:var(--teal);color:#fff;border-radius:22px;padding:18px;display:flex;gap:16px;align-items:center}
+.hero .n{font-size:2.6rem;font-weight:800;line-height:1}
+.hero p{margin:4px 0 0;font-size:.9rem;opacity:.92}
+.banner{margin:12px 0;background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:12px 14px;font-size:.92rem}
+.banner button{margin-top:8px}
+.card{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;width:100%;text-align:left;color:var(--ink);margin-top:10px}
+.card .t{flex:none;width:64px}
+.card .b{flex:1;min-width:0}
+.card b{display:block;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip{display:inline-block;font-size:.74rem;color:var(--mute);border:1px solid var(--line);border-radius:20px;padding:0 8px;margin-right:6px}
+.meta{font-size:.78rem;color:var(--mute);margin-top:4px}
+.prog{height:8px;background:var(--line);border-radius:6px;overflow:hidden;margin:6px 0 2px}
+.prog b{display:block;height:100%;background:var(--amber);border-radius:6px}
+.empty{color:var(--mute);text-align:center;padding:26px 12px;border:1px dashed var(--line);border-radius:14px;margin-top:12px;font-size:.92rem}
+h2{font-size:1.2rem;margin:4px 0}
+.stage{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px 12px;margin-bottom:12px}
+.stage svg{width:190px;height:auto}
+.stage p{margin:4px 0 0;font-size:.9rem}
+.stats{display:flex;gap:8px;margin:10px 0}
+.stats div{flex:1;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}
+.stats b{display:block;font-size:1.3rem;font-weight:800}.stats span{font-size:.72rem;color:var(--mute)}
+.reward{background:var(--card);border:1px dashed var(--amber);border-radius:14px;padding:12px;margin:10px 0;font-size:.92rem}
+.reward.ok{background:var(--amber);color:var(--amber-ink);border-style:solid}
+.sec{font-weight:700;margin:18px 0 8px}
+ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+li{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 8px 10px 14px}
+li .c{flex:none;width:26px;height:26px;border-radius:9px;border:2px solid var(--teal);background:transparent;color:var(--amber-ink);font-weight:800;padding:0}
+li.d .c{background:var(--amber);border-color:var(--amber)}
+li span{flex:1;word-break:break-word}li.d span{color:var(--mute);text-decoration:line-through}
+li .x{border:0;background:transparent;color:var(--mute);font-size:1.1rem;padding:4px 8px}
+.row{display:flex;gap:8px;margin-top:8px}
+input,select,textarea{font:inherit;font-size:1rem;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 12px;width:100%;min-width:0}
+label{display:block;font-size:.85rem;font-weight:500;margin:14px 0 4px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.hint{font-size:.78rem;color:var(--mute);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#1F6F6B"/><rect x="9" y="22" width="30" height="20" rx="10" fill="none" stroke="#fff" stroke-width="6"/><rect x="25" y="22" width="30" height="20" rx="10" fill="none" stroke="#E8A317" stroke-width="6"/></svg>
+    <h1>PlainApp</h1>
+    <button class="ib" id="theme" aria-label="Đổi giao diện sáng hoặc tối">◐</button>
+  </header>
+  <main id="root"></main>
+</div>
+<script>
+(function(){
+var KEY='plainapp.v2',S={plans:[]},view={name:'home'},confirmDel=false;
+try{var r=localStorage.getItem(KEY);if(r)S=JSON.parse(r)||S;}catch(e){}
+if(!S.plans)S.plans=[];
+var save=function(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}};
+var pad=function(n){return String(n).padStart(2,'0');};
+var key=function(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());};
+var today=function(){var d=new Date();d.setHours(0,0,0,0);return d;};
+var addDays=function(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x;};
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+var $=function(id){return document.getElementById(id);};
+var TYPES={plan:['📝','Kế hoạch'],route:['🗓️','Lịch trình'],project:['🚀','Dự án']};
+
+function sim(p){
+  var t=today(),tk=key(t),d=new Date(p.start+'T00:00:00'),endD=addDays(d,p.days-1);
+  var g=0,h=3,run=0,best=0,dead=false,tdone=false,last=t<endD?t:endD;
+  for(var x=new Date(d);x<=last;x=addDays(x,1)){
+    var k=key(x),ts=p.tasks.filter(function(q){return q.from<=k;});
+    if(!ts.length)continue;
+    var lg=p.log[k]||{},ok=ts.every(function(q){return lg[q.id];});
+    if(ok){g++;if(h<3)h++;run++;if(run>best)best=run;if(k===tk)tdone=true;}
+    else if(k!==tk){h--;run=0;if(h<=0){dead=true;break;}}
+  }
+  var fin=t>endD,el=Math.min(p.days,Math.max(0,Math.round((t-d)/864e5)+1));
+  var st=g===0?0:(g/p.days<.25?1:(g/p.days<.5?2:(g/p.days<1?3:4)));
+  if(fin&&!dead&&g>0)st=4;
+  return {g:g,h:dead?0:h,run:dead?0:run,best:best,dead:dead,fin:fin,tdone:tdone,el:el,left:Math.max(0,Math.round((endD-t)/864e5)),st:st};
+}
+
+function tree(st,h,dead){
+  var lc=h>=3?'#3E9B5A':(h===2?'#B8B03A':'#A8743A'),tc=dead?'#6E6A66':'#7A5230',o='';
+  o+='<ellipse cx="60" cy="130" rx="42" ry="7" fill="var(--line)"/>';
+  if(dead){
+    o+='<rect x="56" y="70" width="8" height="60" rx="3" fill="'+tc+'"/><path d="M60 92 L40 72 M60 84 L82 64 M60 100 L78 86" stroke="'+tc+'" stroke-width="4" stroke-linecap="round" fill="none"/>';
+    o+='<ellipse cx="38" cy="127" rx="6" ry="2.5" fill="#8A6A3A"/><ellipse cx="82" cy="128" rx="5" ry="2.2" fill="#8A6A3A"/><ellipse cx="64" cy="132" rx="5" ry="2" fill="#8A6A3A"/>';
+    return o;
+  }
+  if(st===0){o+='<ellipse cx="60" cy="125" rx="15" ry="7" fill="'+tc+'"/><circle cx="60" cy="120" r="3.5" fill="var(--amber)"/>';return o;}
+  if(st===1){
+    o+='<rect x="58" y="96" width="4" height="32" rx="2" fill="#3E9B5A"/><ellipse cx="50" cy="98" rx="10" ry="5" transform="rotate(-25 50 98)" fill="'+lc+'"/><ellipse cx="70" cy="92" rx="10" ry="5" transform="rotate(25 70 92)" fill="'+lc+'"/>';
+  } else {
+    var th=[0,0,44,58,70][st],top=128-th,w=st===4?11:8;
+    o+='<rect x="'+(60-w/2)+'" y="'+top+'" width="'+w+'" height="'+th+'" rx="3" fill="'+tc+'"/>';
+    var C={2:[[60,top-4,20]],3:[[44,top+2,20],[76,top+2,20],[60,top-16,22]],4:[[40,top+8,22],[80,top+8,22],[60,top-6,26],[48,top-20,20],[72,top-20,20]]}[st];
+    if(h===1)C=C.slice(0,Math.max(1,Math.ceil(C.length/2)));
+    C.forEach(function(c){o+='<circle cx="'+c[0]+'" cy="'+c[1]+'" r="'+c[2]+'" fill="'+lc+'" opacity="'+(h===1?.6:(h===2?.9:1))+'"/>';});
+    if(st===4&&h===3)[[50,top-2],[72,top+6],[62,top-18]].forEach(function(f){o+='<circle cx="'+f[0]+'" cy="'+f[1]+'" r="4.5" fill="var(--amber)"/>';});
+  }
+  if(h<3){o+='<ellipse cx="36" cy="128" rx="6" ry="2.5" fill="'+lc+'"/><ellipse cx="82" cy="129" rx="5" ry="2.2" fill="'+lc+'"/>';if(h===1)o+='<ellipse cx="64" cy="132" rx="5" ry="2" fill="'+lc+'"/>';}
+  return o;
+}
+var svgTree=function(s){return '<svg viewBox="0 0 120 140" role="img" aria-label="Cây của bạn">'+tree(s.st,s.h,s.dead)+'</svg>';};
+var status=function(s){
+  if(s.dead)return 'Cây đã chết vì bỏ lỡ quá nhiều ngày. Hãy trồng cây mới.';
+  if(s.fin)return 'Cây đã trưởng thành. Bạn đã đi hết chặng đường.';
+  if(s.h===3)return s.tdone?'Hôm nay xong rồi. Cây đang lớn lên.':'Cây khỏe mạnh. Hoàn thành việc hôm nay để cây lớn thêm.';
+  if(s.h===2)return 'Cây đang khô lá vì hôm qua bị bỏ lỡ. Hoàn thành hôm nay để hồi phục.';
+  return 'Cây đang héo và rụng lá. Bỏ lỡ thêm một ngày nữa là cây chết.';
+};
+
+function dueList(){
+  var n=new Date(),hm=pad(n.getHours())+':'+pad(n.getMinutes()),tk=key(today());
+  return S.plans.filter(function(p){var s=sim(p);return p.remind&&!s.dead&&!s.fin&&!s.tdone&&p.tasks.some(function(q){return q.from<=tk;})&&hm>=p.remind;});
+}
+function notify(){
+  var tk=key(today());
+  dueList().forEach(function(p){
+    if(p.notified===tk)return; p.notified=tk; save();
+    try{if('Notification' in window&&Notification.permission==='granted')new Notification('PlainApp',{body:'Còn việc chưa xong: '+p.name});}catch(e){}
+  });
+}
+
+function timeBar(s,p){
+  return '<div class="prog" aria-hidden="true"><b style="width:'+Math.round(s.el/p.days*100)+'%"></b></div><div class="meta">Ngày '+s.el+'/'+p.days+(s.fin?' · đã kết thúc':' · còn '+s.left+' ngày')+'</div>';
+}
+function home(){
+  var sims=S.plans.map(sim),alive=sims.filter(function(s){return !s.dead;}).length,run=Math.max.apply(null,[0].concat(sims.map(function(s){return s.run;})));
+  var o='<section class="hero"><div class="n">'+alive+'</div><div><b>cây đang sống</b><p>Chuỗi dài nhất hiện tại: '+run+' ngày</p></div></section>';
+  var due=dueList();
+  if(due.length)o+='<div class="banner" role="status"><b>Nhắc nhở:</b> còn việc chưa xong ở '+due.map(function(p){return esc(p.name);}).join(', ')+'.</div>';
+  if('Notification' in window&&Notification.permission==='default'&&S.plans.length)o+='<button class="btn ghost full" style="margin-top:10px" data-a="perm">Bật thông báo nhắc nhở</button>';
+  if(!S.plans.length)o+='<div class="empty">Chưa có cây nào. Tạo kế hoạch đầu tiên để gieo hạt.</div>';
+  S.plans.forEach(function(p,i){
+    var s=sims[i],ty=TYPES[p.type]||TYPES.plan;
+    o+='<button class="card" data-a="open" data-id="'+p.id+'"><div class="t"><svg viewBox="0 0 120 140" aria-hidden="true">'+tree(s.st,s.h,s.dead)+'</svg></div><div class="b"><b>'+esc(p.name)+'</b><div class="meta"><span class="chip">'+ty[0]+' '+ty[1]+'</span>'+(s.dead?'Cây đã chết':'Chuỗi '+s.run+' ngày')+'</div>'+timeBar(s,p)+'</div></button>';
+  });
+  return o+'<button class="btn full" style="margin-top:16px" data-a="new">+ Tạo kế hoạch mới</button>';
+}
+function form(){
+  return '<button class="ib" data-a="back" aria-label="Quay lại">‹</button><h2>Kế hoạch mới</h2>'+
+  '<label for="f-name">Tên</label><input id="f-name" maxlength="60" placeholder="Ví dụ: Ôn thi 30 ngày">'+
+  '<label for="f-type">Loại</label><select id="f-type"><option value="plan">📝 Kế hoạch</option><option value="route">🗓️ Lịch trình</option><option value="project">🚀 Dự án</option></select>'+
+  '<label for="f-days">Kéo dài bao nhiêu ngày</label><input id="f-days" type="number" min="1" max="365" value="30" inputmode="numeric">'+
+  '<label for="f-reward">Phần thưởng khi hoàn tất</label><input id="f-reward" maxlength="80" placeholder="Ví dụ: Một bữa ăn thật ngon">'+
+  '<label for="f-remind">Giờ nhắc nhở mỗi ngày</label><input id="f-remind" type="time" value="20:00">'+
+  '<label for="f-tasks">Việc cần làm mỗi ngày (mỗi dòng một việc)</label><textarea id="f-tasks" rows="4" placeholder="Đọc 10 trang&#10;Làm 5 bài tập"></textarea>'+
+  '<div class="hint">Một ngày được tính là đúng kế hoạch khi bạn hoàn thành tất cả việc trong ngày.</div>'+
+  '<button class="btn full" style="margin-top:16px" data-a="create">Trồng cây</button>';
+}
+function detail(p){
+  var s=sim(p),tk=key(today()),ty=TYPES[p.type]||TYPES.plan;
+  var ts=p.tasks.filter(function(q){return q.from<=tk;}),lg=p.log[tk]||{};
+  var o='<button class="ib" data-a="back" aria-label="Quay lại">‹</button><h2>'+esc(p.name)+'</h2><span class="chip">'+ty[0]+' '+ty[1]+'</span>';
+  o+='<div class="stage" style="margin-top:12px">'+svgTree(s)+'<p>'+status(s)+'</p></div>'+timeBar(s,p);
+  o+='<div class="stats"><div><b>'+s.run+'</b><span>chuỗi hiện tại</span></div><div><b>'+s.best+'</b><span>chuỗi dài nhất</span></div><div><b>'+s.g+'</b><span>ngày đúng kế hoạch</span></div></div>';
+  if(p.reward){
+    if(s.fin&&!s.dead)o+='<div class="reward ok">🎁 Bạn đã hoàn tất! Phần thưởng: <b>'+esc(p.reward)+'</b></div>';
+    else if(s.dead)o+='<div class="reward">🎁 Chưa đạt phần thưởng: '+esc(p.reward)+'</div>';
+    else o+='<div class="reward">🎁 Phần thưởng khi hoàn tất: <b>'+esc(p.reward)+'</b></div>';
+  }
+  if(s.dead){
+    o+='<button class="btn full" data-a="replant">Trồng cây mới từ hôm nay</button>';
+  } else if(!s.fin){
+    o+='<div class="sec">Việc hôm nay</div><ul>';
+    if(!ts.length)o+='<div class="empty">Chưa có việc nào. Thêm việc đầu tiên bên dưới.</div>';
+    ts.forEach(function(q){var d=lg[q.id];o+='<li class="'+(d?'d':'')+'"><button class="c" data-a="toggle" data-t="'+q.id+'" aria-label="Đánh dấu hoàn thành">'+(d?'✓':'')+'</button><span>'+esc(q.t)+'</span><button class="x" data-a="deltask" data-t="'+q.id+'" aria-label="Xóa việc">✕</button></li>';});
+    o+='</ul><div class="row"><input id="nt" maxlength="100" placeholder="Thêm việc mới…" aria-label="Việc mới"><button class="btn" data-a="addtask">Thêm</button></div>';
+  }
+  o+='<label for="rm">Giờ nhắc nhở mỗi ngày</label><input id="rm" type="time" value="'+(p.remind||'')+'"><div class="hint">Nhắc nhở hoạt động khi bạn mở app. App web không thể tự đánh thức điện thoại khi đóng.</div>';
+  o+='<button class="btn warn full" style="margin-top:22px" data-a="delplan">'+(confirmDel?'Chạm lần nữa để xóa hẳn':'Xóa kế hoạch này')+'</button>';
+  return o;
+}
+function render(){
+  var root=$('root'),p=S.plans.filter(function(x){return x.id===view.id;})[0];
+  if(view.name==='plan'&&!p)view={name:'home'};
+  root.innerHTML=view.name==='new'?form():(view.name==='plan'?detail(p):home());
+}
+
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-a]');if(!b)return;
+  var a=b.dataset.a,p=S.plans.filter(function(x){return x.id===view.id;})[0],tk=key(today());
+  if(a==='new')view={name:'new'};
+  else if(a==='back'){view={name:'home'};confirmDel=false;}
+  else if(a==='open'){view={name:'plan',id:+b.dataset.id};confirmDel=false;}
+  else if(a==='perm'){try{Notification.requestPermission().then(render);}catch(x){}return;}
+  else if(a==='create'){
+    var name=$('f-name').value.trim(),days=Math.max(1,Math.min(365,parseInt($('f-days').value,10)||0));
+    if(!name){$('f-name').focus();return;}
+    var id=Date.now(),tasks=$('f-tasks').value.split('\n').map(function(x){return x.trim();}).filter(Boolean).map(function(t,i){return {id:id+i+1,t:t,from:tk};});
+    S.plans.push({id:id,name:name,type:$('f-type').value,days:days||30,reward:$('f-reward').value.trim(),remind:$('f-remind').value,start:tk,tasks:tasks,log:{},notified:''});
+    save();view={name:'plan',id:id};
+  }
+  else if(a==='toggle'&&p){var l=p.log[tk]=p.log[tk]||{};l[b.dataset.t]=!l[b.dataset.t];save();}
+  else if(a==='deltask'&&p){p.tasks=p.tasks.filter(function(q){return String(q.id)!==b.dataset.t;});save();}
+  else if(a==='addtask'&&p){var v=$('nt').value.trim();if(!v)return;p.tasks.push({id:Date.now(),t:v,from:tk});save();}
+  else if(a==='replant'&&p){p.start=tk;p.log={};p.notified='';save();}
+  else if(a==='delplan'&&p){
+    if(!confirmDel){confirmDel=true;}
+    else{S.plans=S.plans.filter(function(x){return x!==p;});confirmDel=false;view={name:'home'};save();}
+  }
+  render();
+});
+document.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.id==='nt'){e.preventDefault();document.querySelector('[data-a="addtask"]').click();}});
+document.addEventListener('change',function(e){
+  if(e.target.id!=='rm')return;
+  var p=S.plans.filter(function(x){return x.id===view.id;})[0];if(p){p.remind=e.target.value;p.notified='';save();notify();}
+});
+$('theme').onclick=function(){
+  var r=document.documentElement,dark=r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);
+  r.setAttribute('data-theme',dark?'light':'dark');
+};
+setInterval(function(){notify();if(view.name==='home')render();},30000);
+notify();render();
+})();
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
+</script>
+</body>
+</html>
